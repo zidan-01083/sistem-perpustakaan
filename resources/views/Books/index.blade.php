@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Buku</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Link ke Tailwind -->
+    <!-- Link to Tailwind CSS and JavaScript -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100">
 
@@ -26,17 +27,24 @@
                 <tbody>
                     @foreach ($books as $book)
                         <tr class="border-t hover:bg-gray-50">
+                            <!-- Gambar -->
                             <td class="px-6 py-4 text-sm text-gray-900">
                                 @if($book->image_path)
-                                <img src="{{ Storage::url($book->image_path) }}" alt="Book Image" class="w-16 h-16 object-cover rounded">
+                                <img src="{{ asset('storage/public/' . $book->image_path) }}" alt="Book Image" class="w-24 h-24 object-cover rounded">
                                 @else
                                     <span class="text-gray-500">No Image</span>
                                 @endif
                             </td>
+                            <!-- Judul Buku -->
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $book->judul_buku }}</td>
+                            <!-- Pengarang -->
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $book->pengarang }}</td>
+                            <!-- Genre -->
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $book->genre_buku }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">{{ $book->ketersediaan_buku ? 'Tersedia' : 'Tidak Tersedia' }}</td>
+                            <!-- Ketersediaan -->
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                {{ $book->ketersediaan_buku ? 'Tersedia' : 'Tidak Tersedia' }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
