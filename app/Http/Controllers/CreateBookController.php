@@ -41,12 +41,14 @@ class CreateBookController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->extension();
-            $imagePath = $image->storeAs('storage/uploads', $imageName); // Simpan gambar di folder public/uploads
-
-            // Menyimpan data gambar ke database
+        
+            // Save the file to storage/app/public/uploads
+            $image->storeAs('public/uploads', $imageName);
+        
+            // Save the relative path to the database
             $book->update([
                 'image_name' => $imageName,
-                'image_path' => $imagePath,
+                'image_path' => 'uploads/' . $imageName, // Correct relative path
                 'mime_type' => $image->getMimeType(),
                 'image_size' => $image->getSize(),
             ]);
