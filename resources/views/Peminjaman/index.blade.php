@@ -34,8 +34,6 @@
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->tanggal_peminjaman->format('d-m-Y') }}</td>
                             <!-- Tanggal Pengembalian -->
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->tanggal_pengembalian->format('d-m-Y') }}</td>
-                            <!-- Denda Keterlambatan -->
-                            <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->denda_keterlambatan }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CreateBookController;
 use App\Http\Controllers\ManageBookController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengembalianController;
 
 Route::get('/', function () {
     return view('Landing.index');
@@ -41,3 +42,8 @@ Route::get('/peminjaman/index', [PeminjamanController::class, 'index'])->name('p
 Route::get('/peminjaman/create', [PeminjamanController::class, 'peminjaman'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 
+
+Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+Route::get('/pengembalian/create', [PengembalianController::class, 'create'])->name('pengembalian.create');
+Route::post('/pengembalian', [PengembalianController::class, 'store'])->name('pengembalian.store');
+Route::put('/pengembalian/{pengembalianBuku}/set-denda', [PengembalianController::class, 'setDenda'])->name('pengembalian.setDenda');

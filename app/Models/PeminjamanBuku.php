@@ -18,7 +18,6 @@ class PeminjamanBuku extends Model
         'user_id', 
         'tanggal_peminjaman', 
         'tanggal_pengembalian', 
-        'denda_keterlambatan'
     ];
 
     // Relasi dengan model Book
