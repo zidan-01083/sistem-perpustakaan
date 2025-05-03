@@ -12,10 +12,27 @@ use Carbon\Carbon;
 class PeminjamanController extends Controller
 {
     public function index()
-    {
-        $peminjaman_bukus = PeminjamanBuku::all();
-        return view('Peminjaman.index', compact('peminjaman_bukus'));
+{
+    $peminjaman_bukus = PeminjamanBuku::with(['book', 'user'])->get();
+
+    // Denda per hari keterlambatan
+    $dendaPerHari = 500;
+
+    // Hitung denda untuk setiap peminjaman
+    foreach ($peminjaman_bukus as $peminjaman) {
+        $tanggalPengembalian = Carbon::now(); // Tanggal saat ini
+        $tanggalBatasPengembalian = Carbon::parse($peminjaman->tanggal_pengembalian);
+
+        if ($tanggalPengembalian->greaterThan($tanggalBatasPengembalian)) {
+            $keterlambatanHari = $tanggalPengembalian->diffInDays($tanggalBatasPengembalian);
+            $peminjaman->denda = $keterlambatanHari * $dendaPerHari;
+        } else {
+            $peminjaman->denda = 0; // Tidak ada denda jika belum terlambat
+        }
     }
+
+    return view('Peminjaman.index', compact('peminjaman_bukus'));
+}
 
     public function peminjaman()
     {

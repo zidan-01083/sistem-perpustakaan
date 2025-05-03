@@ -1,0 +1,125 @@
+/* Global Styles */
+body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Gradasi futuristik */
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #1a202c; /* Warna gelap untuk header */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out;
+    padding: 1rem 0; /* Tambahkan padding untuk memberi ruang */
+}
+
+header:hover {
+    background-color: #2d3748; /* Warna lebih terang saat hover */
+}
+
+header a {
+    text-decoration: none;
+}
+
+header .text-cyan-400 {
+    font-size: 2rem; /* Perbesar ukuran font logo */
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+header .text-cyan-400:hover {
+    color: #00e5ff; /* Warna hover untuk logo */
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Pusatkan navigasi */
+    gap: 2rem; /* Tambahkan jarak antar item */
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.1rem; /* Sedikit perbesar font navigasi */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #00e5ff; /* Warna hover untuk navigasi */
+}
+
+/* Main Content */
+main {
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 160px); /* Mengurangi tinggi header dan footer */
+}
+
+/* Footer */
+footer {
+    background-color: #1a202c;
+    padding: 2rem 0;
+    text-align: center;
+    color: #d1d5db;
+    font-size: 0.9rem;
+    border-top: 1px solid #2d3748;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+footer p a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer p a:hover {
+    text-decoration: underline;
+}
+
+footer .flex {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Tambahkan jarak antar ikon */
+    margin-top: 1rem;
+}
+
+footer .flex a {
+    display: inline-block;
+    color: #00e5ff;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+footer .flex a:hover {
+    color: #ffffff;
+    transform: scale(1.2); /* Efek zoom saat hover */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    footer .flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

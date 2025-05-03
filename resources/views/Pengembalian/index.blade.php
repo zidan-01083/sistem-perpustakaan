@@ -28,7 +28,7 @@
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $pengembalian->user->name }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $pengembalian->book->judul_buku }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $pengembalian->tanggal_dikembalikan->format('d-m-Y') }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">{{ $pengembalian->denda_keterlambatan }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">{{ 'Rp. ' . number_format($pengembalian->denda_keterlambatan, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

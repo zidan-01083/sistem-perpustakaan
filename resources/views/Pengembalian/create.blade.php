@@ -1,3 +1,4 @@
+<!-- filepath: c:\laragon\www\sistem-perpustakaan\resources\views\Pengembalian\create.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,18 +31,9 @@
             <div class="mb-4">
                 <label for="book_id" class="block text-sm font-medium text-gray-700">Pilih Buku</label>
                 <select name="book_id" id="book_id" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required>
+                    <option value="">-- Pilih Buku --</option>
                     @foreach($books as $book)
                         <option value="{{ $book->id }}">{{ $book->judul_buku }} ({{ $book->genre_buku }})</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Pilih Pengguna -->
-            <div class="mb-4">
-                <label for="user_id" class="block text-sm font-medium text-gray-700">Pilih Pengguna</label>
-                <select name="user_id" id="user_id" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
                     @endforeach
                 </select>
             </div>
@@ -50,8 +42,11 @@
             <div class="mb-4">
                 <label for="peminjaman_id" class="block text-sm font-medium text-gray-700">Pilih Peminjaman</label>
                 <select name="peminjaman_id" id="peminjaman_id" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required>
+                    <option value="">-- Pilih Peminjaman --</option>
                     @foreach($peminjaman_bukus as $peminjaman)
-                        <option value="{{ $peminjaman->id }}">{{ $peminjaman->book->judul_buku }} - {{ $peminjaman->user->name }}</option>
+                        <option value="{{ $peminjaman->id }}" data-book-id="{{ $peminjaman->book->id }}" {{ isset($selectedPeminjaman) && $selectedPeminjaman->id == $peminjaman->id ? 'selected' : '' }}>
+                            {{ $peminjaman->user->name }} - {{ $peminjaman->book->judul_buku }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -67,6 +62,29 @@
 
         <a href="{{ route('pengembalian.index') }}" class="text-blue-500 mt-4 inline-block">Back to Pengembalian List</a>
     </div>
+
+    <!-- JavaScript untuk Pemilihan Otomatis -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookSelect = document.getElementById('book_id');
+            const peminjamanSelect = document.getElementById('peminjaman_id');
+
+            bookSelect.addEventListener('change', function () {
+                const selectedBookId = this.value;
+
+                // Reset dropdown peminjaman
+                Array.from(peminjamanSelect.options).forEach(option => {
+                    if (option.value) {
+                        option.style.display = option.getAttribute('data-book-id') === selectedBookId ? 'block' : 'none';
+                    }
+                });
+
+                // Pilih opsi pertama yang cocok
+                const firstVisibleOption = Array.from(peminjamanSelect.options).find(option => option.style.display === 'block');
+                peminjamanSelect.value = firstVisibleOption ? firstVisibleOption.value : '';
+            });
+        });
+    </script>
 
 </body>
 </html>
