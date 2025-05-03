@@ -12,6 +12,24 @@
     <div class="container mx-auto p-8">
         <h1 class="text-3xl font-semibold mb-6">Katalog Buku</h1>
 
+        <div class="mb-4">
+            <form action="{{ route('books.search') }}" method="GET">
+                <input type="text" name="search" placeholder="Cari Buku..." class="px-4 py-2 border border-gray-300 rounded-md w-1/3" required>
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md">Search</button>
+            </form>
+        </div>
+
+        <div class="mb-4">
+            <label for="sort" class="block text-sm font-medium text-gray-700">Sort By:</label>
+            <select id="sort" name="sort" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md">
+                <option value="">Pilih Opsi Pengurutan</option>
+                <option value="alphabet">Sort by Alphabet (A-Z)</option>
+                <option value="newest">Sort by Newest Release</option>
+                <option value="ketersediaan">Sort by Availability</option>
+                <option value="genre">Sort by Genre</option>
+            </select>
+        </div>
+
         <!-- Tabel Katalog Buku -->
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
             <table class="min-w-full table-auto">

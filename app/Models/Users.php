@@ -11,7 +11,7 @@ class Users extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','email_verified_at'
     ];
 
     // Relasi dengan tabel roles
