@@ -7,7 +7,9 @@ use App\Http\Controllers\CreateBookController;
 use App\Http\Controllers\ManageBookController;
 use App\Http\Controllers\PeminjamanController;
 
-Route::get('/', [LandingController::class, 'index']);
+Route::get('/', function () {
+    return view('Landing.index');
+});
 
 
 Route::get('/books', [BookController::class, 'index'])->name('books.index');

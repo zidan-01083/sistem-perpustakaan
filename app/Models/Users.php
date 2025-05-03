@@ -21,7 +21,7 @@ class Users extends Model
     }
 
     // Relasi dengan tabel peminjaman_buku
-    public function peminjamanBuku()
+    public function PeminjamanBuku()
     {
         return $this->hasMany(PeminjamanBuku::class);
     }
