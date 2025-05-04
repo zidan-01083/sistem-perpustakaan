@@ -30,7 +30,13 @@
                 <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->book->judul_buku }}</td>
                 <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->tanggal_peminjaman }}</td>
                 <td class="px-6 py-4 text-sm text-gray-900">{{ $peminjaman->tanggal_pengembalian }}</td>
-                <td class="px-6 py-4 text-sm text-gray-900">{{ 'Rp. ' . number_format($peminjaman->denda, 0, ',', '.') }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">
+                    @if($peminjaman->pengembalian)  <!-- Cek apakah pengembalian ada -->
+                        {{ 'Rp. ' . number_format($peminjaman->pengembalian->denda_keterlambatan, 0, ',', '.') }}
+                    @else
+                        {{ 'Rp. 0' }}  <!-- Jika pengembalian tidak ada, tampilkan denda 0 -->
+                    @endif
+                </td>
             </tr>
         @endforeach
     </tbody>

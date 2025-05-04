@@ -40,6 +40,11 @@ class PeminjamanBuku extends Model
     {
         return Carbon::parse($value);  // Mengonversi string menjadi objek Carbon
     }
+
+    public function pengembalian()
+{
+    return $this->hasOne(PengembalianBuku::class, 'peminjaman_id');
+}
 }
 
 

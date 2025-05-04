@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PeminjamanBuku;
+use App\Models\PengembalianBuku;
 use App\Models\Books;
 use App\Models\Users;
 use Illuminate\Http\Request;
@@ -12,27 +13,35 @@ use Carbon\Carbon;
 class PeminjamanController extends Controller
 {
     public function index()
-{
-    $peminjaman_bukus = PeminjamanBuku::with(['book', 'user'])->get();
-
-    // Denda per hari keterlambatan
-    $dendaPerHari = 500;
-
-    // Hitung denda untuk setiap peminjaman
-    foreach ($peminjaman_bukus as $peminjaman) {
-        $tanggalPengembalian = Carbon::now(); // Tanggal saat ini
-        $tanggalBatasPengembalian = Carbon::parse($peminjaman->tanggal_pengembalian);
-
-        if ($tanggalPengembalian->greaterThan($tanggalBatasPengembalian)) {
-            $keterlambatanHari = $tanggalPengembalian->diffInDays($tanggalBatasPengembalian);
-            $peminjaman->denda = $keterlambatanHari * $dendaPerHari;
-        } else {
-            $peminjaman->denda = 0; // Tidak ada denda jika belum terlambat
+    {
+        $peminjaman_bukus = PeminjamanBuku::with(['book', 'user', 'pengembalian'])->get();
+    
+        // Denda per hari keterlambatan
+        $dendaPerHari = 500;
+    
+        // Hitung denda untuk setiap peminjaman
+        foreach ($peminjaman_bukus as $peminjaman) {
+            $tanggalPengembalian = Carbon::now(); // Tanggal saat ini
+            $tanggalBatasPengembalian = Carbon::parse($peminjaman->tanggal_pengembalian);
+    
+            // Cek apakah pengembalian ada
+            if ($peminjaman->pengembalian) {
+                $tanggalDikembalikan = Carbon::parse($peminjaman->pengembalian->tanggal_dikembalikan);
+                if ($tanggalDikembalikan->greaterThan($tanggalBatasPengembalian)) {
+                    $keterlambatanHari = $tanggalDikembalikan->diffInDays($tanggalBatasPengembalian);
+                    $peminjaman->denda_keterlambatan = $keterlambatanHari * $dendaPerHari;
+                } else {
+                    $peminjaman->denda_keterlambatan = 0;
+                }
+            } else {
+                $peminjaman->denda_keterlambatan = 0; // Tidak ada denda jika belum dikembalikan
+            }
         }
+    
+        return view('Peminjaman.index', compact('peminjaman_bukus'));
     }
 
-    return view('Peminjaman.index', compact('peminjaman_bukus'));
-}
+
 
     public function peminjaman()
     {

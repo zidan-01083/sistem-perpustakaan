@@ -13,20 +13,13 @@ class UsersTableSeeder extends Seeder
     {
         // Menambahkan data pengguna pertama
         users::create([
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
+            'name' => 'Admin1',
+            'email' => 'Admin1@example.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password123'), // Pastikan menggunakan Hash untuk menyimpan password
+            'password' => Hash::make('admin123'), // Pastikan menggunakan Hash untuk menyimpan password
             'remember_token' => Str::random(10),
+            'role' => 'admin'
         ]);
 
-        // Menambahkan data pengguna kedua
-        users::create([
-            'name' => 'Jane Smith',
-            'email' => 'jane.smith@example.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password456'), // Pastikan menggunakan Hash untuk menyimpan password
-            'remember_token' => Str::random(10),
-        ]);
     }
 }
